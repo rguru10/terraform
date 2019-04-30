@@ -2,7 +2,7 @@
 
 # Azure Location
 variable "location" {
-  default = "wetus"
+  default = "westus"
 }
 
 # Azure Tags
