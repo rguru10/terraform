@@ -76,6 +76,16 @@ data "template_file" "setup" {
   }
 }
 
+# Service Principal Module
+module "vaultapp" {
+  source             = "./modules/service_principal"
+  resource_group     = "${azurerm_resource_group.main.id}"
+  location           = "${azurerm_resource_group.main.location}"
+  project_name       = "${random_id.project_name.hex}"
+  subscription_id    = "${data.azurerm_client_config.current.subscription_id}"
+  role_definition_id = "${data.azurerm_role_definition.role_definition.id}"
+}
+
 resource "azurerm_virtual_machine" "main" {
   name                          = "${random_id.project_name.hex}-vm"
   location                      = "${azurerm_resource_group.main.location}"
