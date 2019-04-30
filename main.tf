@@ -13,8 +13,8 @@ resource "azurerm_resource_group" "main" {
   location = "westus"
 }
 
-resource "azurerm_virtual_network" "test" {
-  name                = "${random_id.project_name.hex}-network"
+resource "azurerm_virtual_network" "main" {
+  name                = "${random_id.project_name.hex}-vnet"
   resource_group_name = "${azurerm_resource_group.main.name}"
   location            = "${azurerm_resource_group.main.location}"
   address_space       = ["10.0.0.0/16"]
