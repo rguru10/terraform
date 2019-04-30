@@ -7,10 +7,16 @@ resource "random_id" "project_name" {
   byte_length = 4
 }
 
+# Local for tag to attach to all items
+locals {
+  tags = "${merge(var.tags, map("ProjectName", random_id.project_name.hex))}"
+}
+
 # Azure Resources
 resource "azurerm_resource_group" "main" {
   name     = "${random_id.project_name.hex}-ratna-rg"
-  location = "westus"
+  location = "${var.location}"
+  tags     = "${local.tags}"
 }
 
 resource "azurerm_virtual_network" "main" {
