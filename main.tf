@@ -53,3 +53,20 @@ resource "azurerm_network_interface" "main" {
     private_ip_address_allocation = "dynamic"
   }
 }
+
+# Data Sources
+data "azurerm_client_config" "current" {}
+
+data "azurerm_subscription" "subscription" {}
+
+data "azurerm_role_definition" "role_definition" {
+  name = "Contributor"
+}
+
+data "template_file" "setup" {
+  template = "${file("setupvault.tpl")}"
+
+  vars {
+    vault_url             = "${var.vault_url}"
+  }
+}
